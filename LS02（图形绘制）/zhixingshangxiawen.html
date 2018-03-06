@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas 执行上下文（context） </title>
+</head>
+<script type="text/javascript">
+	 window.addEventListener('load', eventWindowLoaded, false);
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+        function canvasApp() {
+            var theCanvas = document.getElementById('canvas');
+            var context = theCanvas.getContext('2d');
+            
+            console.log(context instanceof CanvasRenderingContext2D);//
+            console.log(CanvasRenderingContext2D.prototype == context.__proto__);
+
+            for (const key in context) {
+                const element = context[key];
+                if (context.hasOwnProperty(key)) {
+                    console.log("自身属性:", element);
+                } else {
+                    console.log("非自身属性:", element);
+                }
+            }
+
+            context.lineWidth = 5;
+            context.strokeStyle = "blue";//填充颜色
+            context.moveTo(0, 0);//从0,0开始画
+            context.lineTo(100, 100);
+            context.stroke();//开始画
+   
+            context.lineWidth = 50;
+            context.strokeStyle = "red";
+            context.beginPath();//思考：若没有这句话会怎样？会覆盖原来的
+            context.moveTo(0, 100);
+            context.lineTo(100, 200);
+            context.stroke();
+            
+        }
+</script>
+<body>
+  <div>
+        <canvas id="canvas" width="500" height="500" style="border:2px #ccc solid">
+           
+        </canvas>
+    </div>
+</body>
+</html>

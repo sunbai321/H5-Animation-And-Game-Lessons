@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas描边与填充（纯色、渐变色）</title>
+    <script type="text/javascript">
+        window.addEventListener('load', eventWindowLoaded, false);
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+
+        function canvasApp() {
+            var theCanvas = document.getElementById('canvas');
+            var context = theCanvas.getContext('2d');
+            linearGradient();
+            radialGradient();
+
+
+
+//语法 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/createLinearGradient            
+// CanvasGradient ctx.createLinearGradient(x0, y0, x1, y1);
+// x0
+// 起点的 x 轴坐标。
+// y0
+// 起点的 y 轴坐标。
+// x1
+// 终点的 x 轴坐标。
+// y1
+// 终点的 y 轴坐标。
+// 使用 createLinearGradient（线性渐变） 方法创建一个指定了开始和结束点的CanvasGradient 对象。
+//创建成功后，可以使用 CanvasGradient.addColorStop() 方法，根据指定的偏移和颜色定义一个新的终止。
+ //如例子所示，渐变允许赋值给当前的fillStyle ，使用fillRect() 方法时，在 canvas 上绘制出效果。
+  //context.createRadialGradient（径向渐变）        
+   //方框
+            function linearGradient() {
+
+                var gr = context.createLinearGradient(200, 250, 300, 250);
+                gr.addColorStop(0, 'red');
+                gr.addColorStop(0.5, 'blue');
+                gr.addColorStop(1, 'yellow');
+           
+                //外面的矩形
+                context.lineWidth = 5;
+                context.strokeStyle = gr;//strokeStyle：用gr颜色画矩形
+                context.strokeRect(200, 200, 100, 100);//strokeRect() 方法绘制矩形（不填色）。笔触的默认颜色是黑色。
+               //里面的填充矩形
+                var gr = context.createLinearGradient(200, 200, 300, 300);
+                gr.addColorStop(0, 'red');
+                gr.addColorStop(1, 'blue');
+                context.fillStyle = gr; //fillStyle ：用gr颜色填充
+                context.fillRect(200 + 20, 200 + 20, 100 - 40, 100 - 40);//fillRect() 方法绘制“已填色”的矩形。默认的填充颜色是黑色。
+              }
+            
+
+            function radialGradient() {
+                var gr = context.createRadialGradient(50, 50, 25, 100, 100, 100);
+                gr.addColorStop(0, 'red');
+                gr.addColorStop(0.5, 'blue');
+                gr.addColorStop(1, 'yellow');
+                
+                context.fillStyle = gr;//用gr填充                
+              //画一个圆
+               context.arc(100, 100, 100, (Math.PI / 180) * 0, (Math.PI / 180) * 360, false);
+               context.fill();//fill（）调用上面的fillstyle填充
+               //fill() 方法填充当前的图像（路径）。默认颜色是黑色。
+               // 提示：请使用 fillStyle 属性来填充另一种颜色/渐变。
+               // 注释：如果路径未关闭，那么 fill() 方法会从路径结束点到开始点之间添加一条线，以关闭该路径，然后填充该路径。
+            
+             //包裹上面圆的一个边界
+                context.strokeStyle = gr;
+                context.arc(100, 100, 50, (Math.PI / 180) * 0, (Math.PI / 180) * 360, false);
+                context.stroke();
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    
+    <div>
+        <canvas id="canvas" width="500" height="500" style="border:2px #ccc solid">
+            
+        </canvas>
+    </div>
+</body>
+
+</html>

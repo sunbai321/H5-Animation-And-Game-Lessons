@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas 执行上下文（context） </title>
+   <script type="text/javascript">
+        window.addEventListener('load', eventWindowLoaded, false);
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+        
+        function canvasApp() {
+            var theCanvas = document.getElementById('canvas');
+            var context = theCanvas.getContext('2d');
+            drawScreenOne();
+            drawScreenTwo();
+          
+            function drawScreenOne() {
+                var fillImg = new Image();
+            }//创建一个Image对象，实现图片的预下载  
+
+            function drawScreenTwo() {
+                var offScreenCanvas = document.getElementById('canvasOffScreen');
+                var offScreenContext = offScreenCanvas.getContext('2d');
+                offScreenContext.fillStyle='blue';
+                // offScreenContext.fillRect(5,5,40,40);
+                offScreenContext.beginPath();
+                offScreenContext.arc(25, 25, 10, Math.PI / 180 * 0, Math.PI / 180 * 145, false);
+                offScreenContext.fill();
+                offScreenContext.closePath();
+                
+                 document.onclick = function(){
+                    var fillPattern = context.createPattern(offScreenCanvas,'repeat');
+// createPattern() 方法在指定的方向内重复指定的元素。
+// 元素可以是图片、视频，或者其他 <canvas> 元素。
+// 被重复的元素可用于绘制/填充矩形、圆形或线条等等。
+// JavaScript 语法：
+// context.createPattern(image,"repeat|repeat-x|repeat-y|no-repeat");
+// 参数值
+// 参数  描述
+// image   规定要使用的图片、画布或视频元素。
+// repeat  默认。该模式在水平和垂直方向重复。
+// repeat-x    该模式只在水平方向重复。
+// repeat-y    该模式只在垂直方向重复。
+// no-repeat   该模式只显示一次（不重复）。
+                    context.fillStyle = fillPattern;//context是获取的大画布的内容
+                    context.fillRect(0,0,500,300);
+                }
+                
+            }
+        }
+        
+    </script>
+</head>
+<body>
+<div>
+    <canvas id="canvas" width="500" height="300" style="border:2px #ccc solid">
+        
+    </canvas>
+    <canvas id="canvasOffScreen" width="50" height="50" style="border:2px #ccc solid">
+   
+    </canvas>
+</div>
+
+</body>

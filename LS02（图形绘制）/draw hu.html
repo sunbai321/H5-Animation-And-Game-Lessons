@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas绘图基础（绘制弧）</title>
+    <script type="text/javascript">
+        window.addEventListener('load', eventWindowLoaded, false);
+        function eventWindowLoaded() {
+            canvasApp();
+        }
+
+        function canvasApp() {
+
+            var theCanvas = document.getElementById('canvas');
+            var context = theCanvas.getContext('2d');
+            
+            // context.arc(x,y,r,sAngle,eAngle,counterclockwise);
+            // x   圆的中心的 x 坐标。
+            // y   圆的中心的 y 坐标。
+            // r   圆的半径。
+            // sAngle  起始角，以弧度计（弧的圆形的三点钟位置是 0 度）。
+            // eAngle  结束角，以弧度计。
+            // counterclockwise    可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
+
+            context.lineWidth = 5;
+            context.strokeStyle = "blue";
+            
+            context.save();
+            context.beginPath();
+            // context.arc(100,100,50,0,Math.PI);//默认是顺时针,即默认anticlockwise为false
+            // context.arc(100, 100, 50, Math.PI / 2, 0);//默认是顺时针,即默认anticlockwise为false
+            //                context.arc(100,100,50,0,Math.PI/2,false);
+            //                context.arc(100,100,50,0,Math.PI/2,true);
+            //                context.fill();
+            context.closePath();
+            context.save();
+            context.arc(100, 100, 50, Math.PI , Math.PI *1.5);
+            context.stroke();
+            context.restore();
+            //四分之一弧
+            
+            context.beginPath();
+            context.arc(100, 100, 50, Math.PI*0.5, 0,true);
+            context.stroke();
+            context.restore();
+
+            context.save();
+            context.strokeStyle = 'red';
+            context.beginPath();
+            
+            context.moveTo(100, 200);
+            context.arcTo(300, 200, 300, 300, 100);
+
+// context.arcTo(x1,y1,x2,y2,r);
+
+// 参数  描述
+// x1  弧的起点的 x 坐标
+// y1  弧的起点的 y 坐标
+// x2  弧的终点的 x 坐标
+// y2  弧的终点的 y 坐标
+// r   弧的半径        
+//eg：
+// ctx.moveTo(20,20);           // 创建开始点
+// ctx.lineTo(100,20);          // 创建水平线
+// ctx.arcTo(150,20,150,70,50); // 创建弧
+// ctx.lineTo(150,120);         // 创建垂直线
+// ctx.stroke();                // 进行绘制
+            
+            
+            // context.arc(100, 100, 50, 0, Math.PI / 2, true);
+            context.stroke();
+            //context.fill();
+            context.closePath();
+            context.restore();
+            
+
+         }
+
+
+    </script>
+</head>
+
+<body>
+       
+        <canvas id="canvas" width="500" height="500" style="border:solid #ccc 2px">
+           
+        </canvas>
+    
+</body>
+
+</html>

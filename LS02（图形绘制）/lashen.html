@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas画布宽高属性、样式宽高及拉伸效果</title>
+</head>
+<script type="text/javascript">
+	window.onload=function(){
+		let theCanvas = document.getElementById("canvas");
+		let context= theCanvas.getContext("2d");
+		 console.log(context.canvas.width, context.canvas.height);
+		  //填充矩形
+            context.fillStyle = "blue";
+            context.fillRect(0, 0, 100, 100);//填充矩形  x：矩形左上角的x坐标。y：矩形左上角的 y 坐标。
+                                             //width：矩形的宽度，以像素计。height：矩形的高度，以像素计。fillStroke
+            //text
+            context.fillStyle = "red";
+            context.font = "20px";
+            context.textBaseline = "top";//textBaseline 属性设置或返回在绘制文本时的当前文本基线。top为在方框的下方
+             context.fillText("Hello World!", 0, 100);
+
+             context.strokeStyle = "yellow";
+            context.lineWidth = 2;
+            context.strokeRect(0, 0, context.canvas.width, context.canvas.height)
+
+	}
+	// canvas默认宽高是300.150，如果宽高不一样就会被拉伸
+</script>
+<body>
+<!-- <canvas id="canvas" width="200px" height="200px" style="width:300px;height: 200px;border: 1px #ccc solid"></canvas> -->
+
+<!-- <canvas id="canvas" style="border:1px #ccc solid"></canvas>  -->
+     
+<!-- <canvas id="canvas" width="300" height="150" style="border:1px #ccc solid"></canvas> -->
+        
+<canvas id="canvas" width="200" height="200" style="border:1px #ccc solid"></canvas>
+        
+<!-- /*/*<canvas id="canvas" style="width:200px;height:200px;border:1px #ccc solid">浏览器不支持canvas</canvas>*/*/
+ -->
+</body>
+</html>
